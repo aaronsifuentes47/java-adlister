@@ -6,11 +6,16 @@
     <title><%= "some title" %></title>
 </head>
 <body>
+
+<h1>Hello there, ${name}!</h1>
+
     <c:if test="true">
         <h1>Variable names should be very descriptive</h1>
     </c:if>
     <c:if test="false">
-        <h1>single letter variable names are good</h1>
+            <h1>single letter variable names are good</h1>
     </c:if>
-</body>
-</html>
+    </body>
+    </html>
+<%
+%>

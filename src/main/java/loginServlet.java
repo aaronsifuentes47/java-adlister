@@ -19,6 +19,5 @@ public class loginServlet extends HttpServlet {
         if (request.getParameter("username").equalsIgnoreCase("admin") && request.getParameter("password").equalsIgnoreCase("password")) {
             response.sendRedirect("/login");
         }
-        PrintWriter out = response.getWriter();
     }
 }

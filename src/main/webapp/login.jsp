@@ -12,6 +12,7 @@
     <title>Login Screen</title>
 </head>
 <body>
+<h3>Enter login information</h3>
 <form action="./login.jsp" method="post">
     <label for="userId">Username: </label>
     <input id="userId" type="text" name="username" placeholder="enter username"/>
