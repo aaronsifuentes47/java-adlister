@@ -37,7 +37,6 @@ public class MySQLAdsDao implements Ads {
            return all();
         }
     }
-
     private List<Ad> generateAds(ResultSet rs) throws SQLException{
         List<Ad> ads = new ArrayList<>();
         while (rs.next()) {
@@ -45,21 +44,23 @@ public class MySQLAdsDao implements Ads {
         }
         return ads;
     }
-
     private Ad extracted(ResultSet rs) throws SQLException {
         return new Ad (
                 rs.getInt("id"),
                 rs.getString("title"),
                 rs.getString("description")
         );
-
-
     }
     @Override
     public Long insert(Ad ad) throws SQLException {
-        String adding = String.format("INSERT INTO ads (user_id, title, description) values (%d, '%s', '%s')", ad.getUserId(),ad.getTitle(),ad.getDescription());
-        Statement statement = connection.createStatement();
-        long queue = statement.executeUpdate(adding);
-        return queue;
+        PreparedStatement stmt = connection.prepareStatement
+                ("INSERT INTO ads (user_id, title, description) values (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+        stmt.setLong(1,ad.getUserId());
+        stmt.setString(2, ad.getTitle());
+        stmt.setString(3, ad.getDescription());
+        stmt.executeUpdate();
+        ResultSet rs = stmt.getGeneratedKeys();
+        rs.next();
+        return rs.getLong(1);
     }
 }
